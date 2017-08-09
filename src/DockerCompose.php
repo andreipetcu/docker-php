@@ -16,36 +16,13 @@ class DockerCompose extends Processor
     const COMPOSE_NAMESPACE = '-p';
 
     /**
-     * @var string
-     */
-    protected $path;
-
-    /**
      * @var Docker
      */
     protected $docker;
 
     /**
-     * @return string
-     */
-    public function getPath(): string
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param string $path
-     * @return DockerCompose
-     */
-    public function setPath(string $path): DockerCompose
-    {
-        $this->path = $path;
-
-        return $this;
-    }
-
-    /**
-     * @param mixed $service
+     * @param null $service
+     * @param bool $verbose
      * @return DockerCompose
      */
     public function start($service = null, bool $verbose = false): DockerCompose
@@ -60,11 +37,14 @@ class DockerCompose extends Processor
             $service
         ));
 
-        return $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+        $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+
+        return $this;
     }
 
     /**
-     * @param mixed $service
+     * @param null $service
+     * @param bool $verbose
      * @return DockerCompose
      */
     public function restart($service = null, bool $verbose = false): DockerCompose
@@ -79,11 +59,14 @@ class DockerCompose extends Processor
             $service
         ));
 
-        return $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+        $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+
+        return $this;
     }
 
     /**
-     * @param mixed $service
+     * @param null $service
+     * @param bool $verbose
      * @return DockerCompose
      */
     public function stop($service = null, bool $verbose = false): DockerCompose
@@ -98,12 +81,14 @@ class DockerCompose extends Processor
             $service
         ));
 
-        return $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+        $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+
+        return $this;
     }
 
-
     /**
-     * @param mixed $service
+     * @param null $service
+     * @param bool $verbose
      * @return DockerCompose
      */
     public function destroy($service = null, bool $verbose = false): DockerCompose
@@ -118,11 +103,14 @@ class DockerCompose extends Processor
             $service
         ));
 
-        return $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+        $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+
+        return $this;
     }
 
     /**
-     * @param mixed $service
+     * @param null $service
+     * @param bool $verbose
      * @return DockerCompose
      */
     public function build($service = null, bool $verbose = false): DockerCompose
@@ -137,11 +125,14 @@ class DockerCompose extends Processor
             $service
         ));
 
-        return $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+        $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+
+        return $this;
     }
 
     /**
-     * @param Docker $docker
+     * @param null $service
+     * @param bool $verbose
      * @return DockerCompose
      */
     public function docker(Docker $docker): DockerCompose
@@ -153,6 +144,7 @@ class DockerCompose extends Processor
 
     /**
      * @param string $service
+     * @throws InvalidArgumentException
      */
     public function ssh(string $service)
     {

@@ -2,19 +2,12 @@
 
 namespace AndreiPetcu\DockerPhp;
 
-use Exception;
-
 class Docker extends Processor
 {
     const DOCKER_COMMAND = 'docker';
     const DOCKER_EXEC = 'exec';
     const DOCKER_INTERACTIVE = '-i';
     const DOCKER_TTY = '-t';
-
-    /**
-     * @var string
-     */
-    protected $path;
 
     /**
      * @param $service

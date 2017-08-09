@@ -2,11 +2,17 @@
 
 namespace AndreiPetcu\DockerPhp;
 
+use InvalidArgumentException;
 use Symfony\Component\Process\ProcessBuilder;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class Processor
 {
+    /**
+     * @var string
+     */
+    protected $path;
+
     /**
      * @var ProcessBuilder
      */
@@ -34,6 +40,25 @@ class Processor
     /**
      * @return string
      */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     * @return Processor
+     */
+    public function setPath(string $path): Processor
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getNamespace(): string
     {
         return $this->namespace;
@@ -41,6 +66,7 @@ class Processor
 
     /**
      * @param string $namespace
+     * @return Processor
      */
     public function setNamespace(string $namespace): Processor
     {
@@ -50,7 +76,7 @@ class Processor
     }
 
     /**
-     * @return DockerCompose
+     * @return Processor
      */
     protected function tty(): Processor
     {
@@ -60,11 +86,19 @@ class Processor
     }
 
     /**
+     * @param string $command
      * @param array $arguments
-     * @return DockerCompose
+     * @param bool $verbose
+     * @return Processor
+     * @throws InvalidArgumentException
+     * @throws ProcessFailedException
      */
     protected function run(string $command, array $arguments, bool $verbose = false): Processor
     {
+        if (! $this->path) {
+            throw new InvalidArgumentException('You must provide a project path');
+        }
+
         $process = $this->processBuilder->setPrefix($command)
             ->setWorkingDirectory($this->path)
             ->setArguments($arguments)
