@@ -142,6 +142,7 @@ class DockerCompose extends Processor
 
     /**
      * @param Docker $docker
+     * @return DockerCompose
      */
     public function docker(Docker $docker): DockerCompose
     {
