@@ -7,7 +7,6 @@ php:
 
 os:
 - linux
-- osx
 
 matrix:
   include:
