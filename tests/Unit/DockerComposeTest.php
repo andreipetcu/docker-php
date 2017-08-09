@@ -85,8 +85,54 @@ class DockerComposeTest extends TestCase
 
         $process->shouldReceive('run')
             ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('isSuccessful')
+            ->once()
+            ->andReturn(true);
+
+        $this->assertSame($docker, $docker->start($service));
+    }
+
+    /**
+     * @dataProvider startProvider
+     * @param ProcessBuilder $processBuilder
+     * @param Process $process
+     * @param $service
+     * @internal param $services
+     */
+    public function testStartVerbose(ProcessBuilder $processBuilder, Process $process, $service)
+    {
+        $docker = new DockerCompose($processBuilder);
+
+        $workingDirectory = dirname(__DIR__, 1);
+
+        $docker->setPath($workingDirectory);
+
+        $arguments = array_merge(
+            ['-p', 'docker', 'up', '-d'],
+            is_string($service) ? [$service] : $service
+        );
+
+        $processBuilder->shouldReceive('setPrefix')
+            ->once()
+            ->with('docker-compose')
+            ->andReturnSelf()
+            ->shouldReceive('setWorkingDirectory')
+            ->once()
+            ->with($workingDirectory)
+            ->andReturnSelf()
+            ->shouldReceive('setArguments')
+            ->once()
+            ->with($arguments)
+            ->andReturnSelf()
+            ->shouldReceive('getProcess')
+            ->andReturn($process);
+
+        $process->shouldReceive('run')
+            ->once()
             ->with(m::on(function($callback) {
-                $callback('type', 'buffer');
+                $callback(Process::ERR, '');
 
                 return is_callable($callback);
             }))
@@ -95,7 +141,7 @@ class DockerComposeTest extends TestCase
             ->once()
             ->andReturn(true);
 
-        $this->assertSame($docker, $docker->start($service));
+        $this->assertSame($docker, $docker->start($service, true));
     }
 
     /**
@@ -137,8 +183,74 @@ class DockerComposeTest extends TestCase
             ->andReturn($process);
 
         $process->shouldReceive('run')
+            ->with(null)
+            ->once()
+            ->andReturnSelf()
+            ->shouldReceive('getCommandLine')
+            ->once()
+            ->andReturn('')
+            ->shouldReceive('getExitCode')
+            ->once()
+            ->andReturn('')
+            ->shouldReceive('getExitCodeText')
+            ->once()
+            ->andReturn('')
+            ->shouldReceive('getWorkingDirectory')
+            ->once()
+            ->andReturn('')
+            ->shouldReceive('isOutputDisabled')
+            ->once()
+            ->andReturn(true)
+            ->shouldReceive('isSuccessful')
+            ->once()
+            ->andReturn(false);
+
+        $this->expectException(ProcessFailedException::class);
+
+        $this->assertSame($docker, $docker->start($service));
+    }
+
+    /**
+     * @dataProvider startProvider
+     * @param ProcessBuilder $processBuilder
+     * @param Process $process
+     * @param $service
+     * @internal param $services
+     */
+    public function testStartVerboseThrowsProcessFailedExceptionWhenProcessFails(
+        ProcessBuilder $processBuilder,
+        Process $process,
+        $service
+    ) {
+        $docker = new DockerCompose($processBuilder);
+
+        $workingDirectory = dirname(__DIR__, 1);
+
+        $docker->setPath($workingDirectory);
+
+        $arguments = array_merge(
+            ['-p', 'docker', 'up', '-d'],
+            is_string($service) ? [$service] : $service
+        );
+
+        $processBuilder->shouldReceive('setPrefix')
+            ->once()
+            ->with('docker-compose')
+            ->andReturnSelf()
+            ->shouldReceive('setWorkingDirectory')
+            ->once()
+            ->with($workingDirectory)
+            ->andReturnSelf()
+            ->shouldReceive('setArguments')
+            ->once()
+            ->with($arguments)
+            ->andReturnSelf()
+            ->shouldReceive('getProcess')
+            ->andReturn($process);
+
+        $process->shouldReceive('run')
             ->with(m::on(function($callback) {
-                $callback('type', 'buffer');
+                $callback(Process::ERR, '');
 
                 return is_callable($callback);
             }))
@@ -165,6 +277,6 @@ class DockerComposeTest extends TestCase
 
         $this->expectException(ProcessFailedException::class);
 
-        $this->assertSame($docker, $docker->start($service));
+        $this->assertSame($docker, $docker->start($service, true));
     }
 }

@@ -77,19 +77,19 @@ class DockerCompose
      * @param mixed $service
      * @return DockerCompose
      */
-    public function start($service): DockerCompose
+    public function start($service = null, bool $verbose = false): DockerCompose
     {
-        $service = is_string($service) ? [$service] : $service;
+        $service = ! is_array($service) ? [$service] : $service;
 
-        $arguments = array_merge(
+        $arguments = array_filter(array_merge(
             [
                 self::COMPOSE_NAMESPACE, $this->namespace,
                 self::COMPOSE_START, self::COMPOSE_DAEMON
             ],
             $service
-        );
+        ));
 
-        $this->run($arguments);
+        $this->run($arguments, $verbose);
 
         return $this;
     }
@@ -98,16 +98,22 @@ class DockerCompose
      * @param array $arguments
      * @return DockerCompose
      */
-    protected function run(array $arguments): DockerCompose
+    protected function run(array $arguments, bool $verbose = false): DockerCompose
     {
         $process = $this->processBuilder->setPrefix(self::COMMAND)
             ->setWorkingDirectory($this->path)
             ->setArguments($arguments)
             ->getProcess();
 
-        $process->run(function ($type, $buffer) {
-            echo $buffer;
-        });
+        $callback = null;
+        if ($verbose) {
+            $callback = function ($type, $buffer) {
+                unset($type);
+                echo $buffer;
+            };
+        }
+
+        $process->run($callback);
 
         if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
