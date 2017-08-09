@@ -19,29 +19,37 @@ Usage
 ```php
 <?php
 
+use AndreiPetcu\DockerPhp\Docker;
 use AndreiPetcu\DockerPhp\DockerCompose;
 use Symfony\Component\Process\ProcessBuilder;
 
-$dockerCompose = new DockerCompose(new ProcessBuilder);
+$compose = new DockerCompose(new ProcessBuilder());
+$compose->setPath('/path/to/project')
+    ->setNamespace('awesome');
 
-$dockerCompose->setPath('/path/to/project');
+$docker = new Docker(new ProcessBuilder());
 
-// Either give it one service
-$dockerCompose->start('nginx');
+// All commands accept either a service as a string or an array of services
+// and a verbose flag which defaults to false
+$compose->build('nginx', true)
+    ->start('nginx', true)
+    ->restart('nginx', true)
+    ->stop('nginx', true)
+    ->destroy('nginx', true);
 
-// Or for multiple services
-$dockerCompose->start(['nginx', 'mysql']);
+// Will ssh into awesome_nginx_1
+$compose->start('nginx')
+    ->docker($docker)
+    ->ssh('nginx');
 
-// Or finally for all services
-$dockerCompose->start();
-
-// If you want to enable ouput
-$dockerCompose->start('nginx', true); 
+// Will ssh into the given container.
+$docker->ssh('container');
 ```
 
 TODO
 ----
-- Add restart, stop, build, destroy, exec and ssh commands.
+- Cover all code
+- Remove duplicated code from DockerCompose (start, restart, stop, destroy, build)
 
 License
 -------

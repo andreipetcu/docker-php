@@ -2,20 +2,18 @@
 
 namespace AndreiPetcu\DockerPhp;
 
-use Symfony\Component\Process\ProcessBuilder;
-use Symfony\Component\Process\Exception\ProcessFailedException;
+use InvalidArgumentException;
 
-class DockerCompose
+class DockerCompose extends Processor
 {
-    const COMMAND = 'docker-compose';
+    const COMPOSE_COMMAND = 'docker-compose';
     const COMPOSE_START = 'up';
+    const COMPOSE_RESTART = 'restart';
+    const COMPOSE_STOP = 'stop';
+    const COMPOSE_DOWN = 'down';
+    const COMPOSE_BUILD = 'build';
     const COMPOSE_DAEMON = '-d';
     const COMPOSE_NAMESPACE = '-p';
-
-    /**
-     * @var ProcessBuilder
-     */
-    protected $processBuilder;
 
     /**
      * @var string
@@ -23,18 +21,9 @@ class DockerCompose
     protected $path;
 
     /**
-     * @var string
+     * @var Docker
      */
-    protected $namespace = 'docker';
-
-    /**
-     * Docker constructor.
-     * @param ProcessBuilder $processBuilder
-     */
-    public function __construct(ProcessBuilder $processBuilder)
-    {
-        $this->processBuilder = $processBuilder;
-    }
+    protected $docker;
 
     /**
      * @return string
@@ -56,24 +45,6 @@ class DockerCompose
     }
 
     /**
-     * @return string
-     */
-    public function getNamespace(): string
-    {
-        return $this->namespace;
-    }
-
-    /**
-     * @param string $namespace
-     */
-    public function setNamespace(string $namespace): DockerCompose
-    {
-        $this->namespace = $namespace;
-
-        return $this;
-    }
-
-    /**
      * @param mixed $service
      * @return DockerCompose
      */
@@ -89,36 +60,107 @@ class DockerCompose
             $service
         ));
 
-        $this->run($arguments, $verbose);
+        return $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+    }
+
+    /**
+     * @param mixed $service
+     * @return DockerCompose
+     */
+    public function restart($service = null, bool $verbose = false): DockerCompose
+    {
+        $service = ! is_array($service) ? [$service] : $service;
+
+        $arguments = array_filter(array_merge(
+            [
+                self::COMPOSE_NAMESPACE, $this->namespace,
+                self::COMPOSE_RESTART
+            ],
+            $service
+        ));
+
+        return $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+    }
+
+    /**
+     * @param mixed $service
+     * @return DockerCompose
+     */
+    public function stop($service = null, bool $verbose = false): DockerCompose
+    {
+        $service = ! is_array($service) ? [$service] : $service;
+
+        $arguments = array_filter(array_merge(
+            [
+                self::COMPOSE_NAMESPACE, $this->namespace,
+                self::COMPOSE_STOP
+            ],
+            $service
+        ));
+
+        return $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+    }
+
+
+    /**
+     * @param mixed $service
+     * @return DockerCompose
+     */
+    public function destroy($service = null, bool $verbose = false): DockerCompose
+    {
+        $service = ! is_array($service) ? [$service] : $service;
+
+        $arguments = array_filter(array_merge(
+            [
+                self::COMPOSE_NAMESPACE, $this->namespace,
+                self::COMPOSE_DOWN
+            ],
+            $service
+        ));
+
+        return $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+    }
+
+    /**
+     * @param mixed $service
+     * @return DockerCompose
+     */
+    public function build($service = null, bool $verbose = false): DockerCompose
+    {
+        $service = ! is_array($service) ? [$service] : $service;
+
+        $arguments = array_filter(array_merge(
+            [
+                self::COMPOSE_NAMESPACE, $this->namespace,
+                self::COMPOSE_BUILD
+            ],
+            $service
+        ));
+
+        return $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+    }
+
+    /**
+     * @param Docker $docker
+     */
+    public function docker(Docker $docker): DockerCompose
+    {
+        $this->docker = $docker;
 
         return $this;
     }
 
     /**
-     * @param array $arguments
-     * @return DockerCompose
+     * @param string $service
      */
-    protected function run(array $arguments, bool $verbose = false): DockerCompose
+    public function ssh(string $service)
     {
-        $process = $this->processBuilder->setPrefix(self::COMMAND)
-            ->setWorkingDirectory($this->path)
-            ->setArguments($arguments)
-            ->getProcess();
-
-        $callback = null;
-        if ($verbose) {
-            $callback = function ($type, $buffer) {
-                unset($type);
-                echo $buffer;
-            };
+        if (! $this->docker) {
+            throw new InvalidArgumentException('You must provide a Docker instance');
         }
 
-        $process->run($callback);
+        $container = sprintf('%s_%s_1', $this->namespace, $service);
 
-        if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        return $this;
+        $this->docker->ssh($container);
     }
 }
