@@ -8,6 +8,10 @@ php:
 os:
 - linux
 
+env:
+  global:
+    - TEST_COMMAND="composer test"
+
 install:
   - travis_retry composer update ${COMPOSER_FLAGS} --prefer-source --no-interaction
 
