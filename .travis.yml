@@ -8,6 +8,9 @@ php:
 os:
 - linux
 
+install:
+  - travis_retry composer update ${COMPOSER_FLAGS} --prefer-source --no-interaction
+
 matrix:
   include:
       env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" COVERAGE=true TEST_COMMAND="composer test-ci"
