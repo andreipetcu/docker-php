@@ -11,7 +11,7 @@ Installation
 ------------
 
 ```bash
-composer require andreipetcu/docker-php
+composer require andreipetcu/docker-php:v0.2-alpha
 ```
 
 Usage
