@@ -15,6 +15,7 @@ composer require andreipetcu/docker-php
 ```
 
 Usage
+-----
 ```php
 <?php
 
