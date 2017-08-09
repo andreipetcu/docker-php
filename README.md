@@ -39,6 +39,10 @@ $dockerCompose->start();
 $dockerCompose->start('nginx', true); 
 ```
 
+TODO
+----
+- Add restart, stop, build, destroy, exec and ssh commands.
+
 License
 -------
 
