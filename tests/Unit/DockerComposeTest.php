@@ -135,7 +135,7 @@ class DockerComposeTest extends TestCase
 
         $process->shouldReceive('run')
             ->once()
-            ->with(m::on(function($callback) {
+            ->with(m::on(function ($callback) {
                 $callback(Process::ERR, '');
 
                 return is_callable($callback);
@@ -259,7 +259,7 @@ class DockerComposeTest extends TestCase
             ->andReturn($process);
 
         $process->shouldReceive('run')
-            ->with(m::on(function($callback) {
+            ->with(m::on(function ($callback) {
                 $callback(Process::ERR, '');
 
                 return is_callable($callback);
