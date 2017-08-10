@@ -93,6 +93,9 @@ class DockerComposeTest extends TestCase
             ->once()
             ->with(false)
             ->andReturnSelf()
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
             ->andReturn(true);
@@ -146,6 +149,9 @@ class DockerComposeTest extends TestCase
             ->shouldReceive('setTty')
             ->once()
             ->with(false)
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
             ->andReturn(true);
@@ -205,6 +211,9 @@ class DockerComposeTest extends TestCase
             ->once()
             ->andReturn('')
             ->shouldReceive('getExitCodeText')
+            ->once()
+            ->andReturn('')
+            ->shouldReceive('getOutput')
             ->once()
             ->andReturn('')
             ->shouldReceive('getWorkingDirectory')
@@ -286,6 +295,9 @@ class DockerComposeTest extends TestCase
             ->shouldReceive('isOutputDisabled')
             ->once()
             ->andReturn(true)
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
             ->andReturn(false);
@@ -348,10 +360,16 @@ class DockerComposeTest extends TestCase
             ->shouldReceive('getExitCode')
             ->once()
             ->andReturn('')
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('getExitCodeText')
             ->once()
             ->andReturn('')
             ->shouldReceive('getWorkingDirectory')
+            ->once()
+            ->andReturn('')
+            ->shouldReceive('getOutput')
             ->once()
             ->andReturn('')
             ->shouldReceive('isOutputDisabled')
@@ -409,6 +427,9 @@ class DockerComposeTest extends TestCase
             ->once()
             ->with(false)
             ->andReturnSelf()
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
             ->andReturn(true);
@@ -462,6 +483,9 @@ class DockerComposeTest extends TestCase
             ->shouldReceive('setTty')
             ->once()
             ->with(false)
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
             ->andReturn(true);
@@ -515,6 +539,9 @@ class DockerComposeTest extends TestCase
             ->once()
             ->with(false)
             ->shouldReceive('getCommandLine')
+            ->once()
+            ->andReturn('')
+            ->shouldReceive('getOutput')
             ->once()
             ->andReturn('')
             ->shouldReceive('getExitCode')
@@ -593,6 +620,9 @@ class DockerComposeTest extends TestCase
             ->shouldReceive('getExitCode')
             ->once()
             ->andReturn('')
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('getExitCodeText')
             ->once()
             ->andReturn('')
@@ -654,6 +684,9 @@ class DockerComposeTest extends TestCase
             ->once()
             ->with(false)
             ->andReturnSelf()
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
             ->andReturn(true);
@@ -704,6 +737,9 @@ class DockerComposeTest extends TestCase
                 return is_callable($callback);
             }))
             ->andReturnSelf()
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('setTty')
             ->once()
             ->with(false)
@@ -763,6 +799,9 @@ class DockerComposeTest extends TestCase
             ->once()
             ->andReturn('')
             ->shouldReceive('getExitCode')
+            ->once()
+            ->andReturn('')
+            ->shouldReceive('getOutput')
             ->once()
             ->andReturn('')
             ->shouldReceive('getExitCodeText')
@@ -838,6 +877,9 @@ class DockerComposeTest extends TestCase
             ->shouldReceive('getExitCode')
             ->once()
             ->andReturn('')
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('getExitCodeText')
             ->once()
             ->andReturn('')
@@ -899,6 +941,9 @@ class DockerComposeTest extends TestCase
             ->once()
             ->with(false)
             ->andReturnSelf()
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
             ->andReturn(true);
@@ -949,6 +994,9 @@ class DockerComposeTest extends TestCase
                 return is_callable($callback);
             }))
             ->andReturnSelf()
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('setTty')
             ->once()
             ->with(false)
@@ -1001,6 +1049,9 @@ class DockerComposeTest extends TestCase
             ->with(null)
             ->once()
             ->andReturnSelf()
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('setTty')
             ->once()
             ->with(false)
@@ -1083,6 +1134,9 @@ class DockerComposeTest extends TestCase
             ->shouldReceive('getExitCode')
             ->once()
             ->andReturn('')
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('getExitCodeText')
             ->once()
             ->andReturn('')
@@ -1116,10 +1170,7 @@ class DockerComposeTest extends TestCase
 
         $docker->setPath($workingDirectory);
 
-        $arguments = array_merge(
-            ['-p', 'docker', 'down'],
-            is_string($service) ? [$service] : $service
-        );
+        $arguments = ['-p', 'docker', 'down'];
 
         $processBuilder->shouldReceive('setPrefix')
             ->once()
@@ -1144,11 +1195,14 @@ class DockerComposeTest extends TestCase
             ->once()
             ->with(false)
             ->andReturnSelf()
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
             ->andReturn(true);
 
-        $this->assertSame($docker, $docker->destroy($service));
+        $this->assertSame($docker, $docker->destroy());
     }
 
     /**
@@ -1166,10 +1220,7 @@ class DockerComposeTest extends TestCase
 
         $docker->setPath($workingDirectory);
 
-        $arguments = array_merge(
-            ['-p', 'docker', 'down'],
-            is_string($service) ? [$service] : $service
-        );
+        $arguments = ['-p', 'docker', 'down'];
 
         $processBuilder->shouldReceive('setPrefix')
             ->once()
@@ -1197,11 +1248,14 @@ class DockerComposeTest extends TestCase
             ->shouldReceive('setTty')
             ->once()
             ->with(false)
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
             ->andReturn(true);
 
-        $this->assertSame($docker, $docker->destroy($service, true));
+        $this->assertSame($docker, $docker->destroy(true));
     }
 
     /**
@@ -1222,10 +1276,7 @@ class DockerComposeTest extends TestCase
 
         $docker->setPath($workingDirectory);
 
-        $arguments = array_merge(
-            ['-p', 'docker', 'down'],
-            is_string($service) ? [$service] : $service
-        );
+        $arguments = ['-p', 'docker', 'down'];
 
         $processBuilder->shouldReceive('setPrefix')
             ->once()
@@ -1246,6 +1297,9 @@ class DockerComposeTest extends TestCase
             ->with(null)
             ->once()
             ->andReturnSelf()
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('setTty')
             ->once()
             ->with(false)
@@ -1270,7 +1324,7 @@ class DockerComposeTest extends TestCase
 
         $this->expectException(ProcessFailedException::class);
 
-        $this->assertSame($docker, $docker->destroy($service));
+        $this->assertSame($docker, $docker->destroy());
     }
 
     /**
@@ -1291,10 +1345,7 @@ class DockerComposeTest extends TestCase
 
         $docker->setPath($workingDirectory);
 
-        $arguments = array_merge(
-            ['-p', 'docker', 'down'],
-            is_string($service) ? [$service] : $service
-        );
+        $arguments = ['-p', 'docker', 'down'];
 
         $processBuilder->shouldReceive('setPrefix')
             ->once()
@@ -1325,6 +1376,9 @@ class DockerComposeTest extends TestCase
             ->shouldReceive('getCommandLine')
             ->once()
             ->andReturn('')
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('getExitCode')
             ->once()
             ->andReturn('')
@@ -1343,7 +1397,7 @@ class DockerComposeTest extends TestCase
 
         $this->expectException(ProcessFailedException::class);
 
-        $this->assertSame($docker, $docker->destroy($service, true));
+        $this->assertSame($docker, $docker->destroy(true));
     }
 
     /**

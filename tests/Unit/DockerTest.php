@@ -72,6 +72,9 @@ class DockerTest extends TestCase
             ->shouldReceive('isSuccessful')
             ->once()
             ->andReturn(true)
+            ->shouldReceive('getOutput')
+            ->once()
+            ->andReturn('')
             ->shouldReceive('stop')
             ->once()
             ->andReturnSelf();

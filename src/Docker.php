@@ -45,6 +45,11 @@ class Docker extends Processor
         return $this;
     }
 
+    /**
+     * @param string $action
+     * @param array $arguments
+     * @return Docker
+     */
     public function network(string $action, array $arguments = []): Docker
     {
         $this->path = '/tmp';
