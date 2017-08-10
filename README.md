@@ -11,7 +11,7 @@ Installation
 ------------
 
 ```bash
-composer require andreipetcu/docker-php:v0.2-alpha
+composer require andreipetcu/docker-php
 ```
 
 Usage
@@ -45,11 +45,6 @@ $compose->start('nginx')
 // Will ssh into the given container.
 $docker->ssh('container');
 ```
-
-TODO
-----
-- Cover all code
-- Remove duplicated code from DockerCompose (start, restart, stop, destroy, build)
 
 License
 -------
