@@ -6,6 +6,7 @@ class Docker extends Processor
 {
     const DOCKER_COMMAND = 'docker';
     const DOCKER_EXEC = 'exec';
+    const DOCKER_NETWORK = 'network';
     const DOCKER_INTERACTIVE = '-i';
     const DOCKER_TTY = '-t';
 
@@ -38,6 +39,23 @@ class Docker extends Processor
         if ($interactive) {
             $this->tty();
         }
+
+        $this->run(self::DOCKER_COMMAND, $arguments);
+
+        return $this;
+    }
+
+    public function network(string $action, array $arguments = []): Docker
+    {
+        $this->path = '/tmp';
+
+        $arguments = array_merge(
+            [
+                self::DOCKER_NETWORK,
+                $action
+            ],
+            $arguments
+        );
 
         $this->run(self::DOCKER_COMMAND, $arguments);
 

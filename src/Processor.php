@@ -29,6 +29,11 @@ class Processor
     protected $tty = false;
 
     /**
+     * @var string
+     */
+    protected $output = '';
+
+    /**
      * Docker constructor.
      * @param ProcessBuilder $processBuilder
      */
@@ -76,6 +81,14 @@ class Processor
     }
 
     /**
+     * @return string
+     */
+    public function getOutput(): string
+    {
+        return $this->output;
+    }
+
+    /**
      * @return Processor
      */
     protected function tty(): Processor
@@ -119,6 +132,8 @@ class Processor
         if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
+
+        $this->output = $process->getOutput();
 
         return $this;
     }
