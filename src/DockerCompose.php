@@ -146,7 +146,7 @@ class DockerCompose extends Processor
      * @param string $service
      * @throws InvalidArgumentException
      */
-    public function ssh(string $service)
+    public function ssh(string $service): DockerCompose
     {
         if (! $this->docker) {
             throw new InvalidArgumentException('You must provide a Docker instance');
@@ -155,6 +155,8 @@ class DockerCompose extends Processor
         $container = sprintf('%s_%s_1', $this->namespace, $service);
 
         $this->docker->ssh($container);
+
+        return $this;
     }
 
     /**
