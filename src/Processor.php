@@ -26,7 +26,7 @@ class Processor
     /**
      * @var bool;
      */
-    protected $tty;
+    protected $tty = false;
 
     /**
      * Docker constructor.
@@ -104,9 +104,7 @@ class Processor
             ->setArguments($arguments)
             ->getProcess();
 
-        if ($this->tty) {
-            $process->setTty(true);
-        }
+        $process->setTty($this->tty);
 
         $callback = null;
         if ($verbose) {

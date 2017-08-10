@@ -37,7 +37,7 @@ class DockerCompose extends Processor
             $service
         ));
 
-        $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+        $this->fire($arguments, $verbose);
 
         return $this;
     }
@@ -59,7 +59,7 @@ class DockerCompose extends Processor
             $service
         ));
 
-        $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+        $this->fire($arguments, $verbose);
 
         return $this;
     }
@@ -81,7 +81,7 @@ class DockerCompose extends Processor
             $service
         ));
 
-        $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+        $this->fire($arguments, $verbose);
 
         return $this;
     }
@@ -103,7 +103,7 @@ class DockerCompose extends Processor
             $service
         ));
 
-        $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+        $this->fire($arguments, $verbose);
 
         return $this;
     }
@@ -125,7 +125,7 @@ class DockerCompose extends Processor
             $service
         ));
 
-        $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+        $this->fire($arguments, $verbose);
 
         return $this;
     }
@@ -155,5 +155,16 @@ class DockerCompose extends Processor
         $container = sprintf('%s_%s_1', $this->namespace, $service);
 
         $this->docker->ssh($container);
+    }
+
+    /**
+     * @param array $arguments
+     * @param bool $verbose
+     */
+    protected function fire(array $arguments, bool $verbose = false): DockerCompose
+    {
+        $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
+
+        return $this;
     }
 }

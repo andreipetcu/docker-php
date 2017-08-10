@@ -12,19 +12,35 @@ class Docker extends Processor
     /**
      * @param $service
      */
-    public function ssh(string $container)
+    public function ssh(string $container): Docker
+    {
+        return $this->exec($container, 'bash', true);
+    }
+
+    /**
+     * @param string $container
+     * @param string $command
+     * @param bool $interactive
+     */
+    public function exec(string $container, string $command, bool $interactive = false): Docker
     {
         // TODO: Find a more suitable fix
         $this->path = '/tmp';
 
         $arguments = [
             self::DOCKER_EXEC,
-            self::DOCKER_INTERACTIVE,
-            self::DOCKER_TTY,
+            $interactive ? self::DOCKER_INTERACTIVE : null,
+            $interactive ? self::DOCKER_TTY : null,
             $container,
-            'bash'
+            $command
         ];
 
-        $this->tty()->run(self::DOCKER_COMMAND, $arguments);
+        if ($interactive) {
+            $this->tty();
+        }
+
+        $this->run(self::DOCKER_COMMAND, $arguments);
+
+        return $this;
     }
 }
