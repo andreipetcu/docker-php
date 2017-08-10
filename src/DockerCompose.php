@@ -91,17 +91,12 @@ class DockerCompose extends Processor
      * @param bool $verbose
      * @return DockerCompose
      */
-    public function destroy($service = null, bool $verbose = false): DockerCompose
+    public function destroy(bool $verbose = false): DockerCompose
     {
-        $service = ! is_array($service) ? [$service] : $service;
-
-        $arguments = array_filter(array_merge(
-            [
-                self::COMPOSE_NAMESPACE, $this->namespace,
-                self::COMPOSE_DOWN
-            ],
-            $service
-        ));
+        $arguments = [
+            self::COMPOSE_NAMESPACE, $this->namespace,
+            self::COMPOSE_DOWN
+        ];
 
         $this->fire($arguments, $verbose);
 
