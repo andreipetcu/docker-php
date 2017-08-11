@@ -127,6 +127,9 @@ class Processor
             ->setArguments($arguments)
             ->getProcess();
 
+        $process->setTimeout($this->timeout);
+        $process->setIdleTimeout($this->idleTimeout);
+
         $process->setTty($this->tty);
 
         $callback = null;
