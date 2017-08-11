@@ -36,12 +36,12 @@ class Processor
     /**
      * @var int
      */
-    protected $timeout = 120;
+    protected $timeout = 600;
 
     /**
      * @var int
      */
-    protected $idleTimeout = 120;
+    protected $idleTimeout = 600;
 
     /**
      * Docker constructor.
