@@ -27,6 +27,9 @@ class DockerCompose extends Processor
      */
     public function start($service = null, bool $verbose = false): DockerCompose
     {
+        $this->timeout = 600;
+        $this->idleTimeout = 600;
+
         $service = ! is_array($service) ? [$service] : $service;
 
         $arguments = array_filter(array_merge(

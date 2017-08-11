@@ -34,6 +34,16 @@ class Processor
     protected $output = '';
 
     /**
+     * @var int
+     */
+    protected $timeout = 120;
+
+    /**
+     * @var int
+     */
+    protected $idleTimeout = 120;
+
+    /**
      * Docker constructor.
      * @param ProcessBuilder $processBuilder
      */
