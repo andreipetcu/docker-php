@@ -34,16 +34,6 @@ class Processor
     protected $output = '';
 
     /**
-     * @var int
-     */
-    protected $timeout = 600;
-
-    /**
-     * @var int
-     */
-    protected $idleTimeout = 600;
-
-    /**
      * Docker constructor.
      * @param ProcessBuilder $processBuilder
      */
@@ -127,8 +117,9 @@ class Processor
             ->setArguments($arguments)
             ->getProcess();
 
-        $process->setTimeout($this->timeout);
-        $process->setIdleTimeout($this->idleTimeout);
+        // Disable any kind of timeout
+        $process->setTimeout(null);
+        $process->setIdleTimeout(null);
 
         $process->setTty($this->tty);
 
