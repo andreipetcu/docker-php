@@ -98,7 +98,15 @@ class DockerComposeTest extends TestCase
             ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(true);
+            ->andReturn(true)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->assertSame($docker, $docker->start($service));
     }
@@ -154,7 +162,15 @@ class DockerComposeTest extends TestCase
             ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(true);
+            ->andReturn(true)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->assertSame($docker, $docker->start($service, true));
     }
@@ -224,7 +240,15 @@ class DockerComposeTest extends TestCase
             ->andReturn(true)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(false);
+            ->andReturn(false)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->expectException(ProcessFailedException::class);
 
@@ -300,7 +324,15 @@ class DockerComposeTest extends TestCase
             ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(false);
+            ->andReturn(false)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->expectException(ProcessFailedException::class);
 
@@ -377,7 +409,15 @@ class DockerComposeTest extends TestCase
             ->andReturn(true)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(false);
+            ->andReturn(false)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->expectException(InvalidArgumentException::class);
 
@@ -432,7 +472,15 @@ class DockerComposeTest extends TestCase
             ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(true);
+            ->andReturn(true)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->assertSame($docker, $docker->restart($service));
     }
@@ -488,7 +536,15 @@ class DockerComposeTest extends TestCase
             ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(true);
+            ->andReturn(true)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->assertSame($docker, $docker->restart($service, true));
     }
@@ -558,7 +614,15 @@ class DockerComposeTest extends TestCase
             ->andReturn(true)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(false);
+            ->andReturn(false)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->expectException(ProcessFailedException::class);
 
@@ -634,7 +698,15 @@ class DockerComposeTest extends TestCase
             ->andReturn(true)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(false);
+            ->andReturn(false)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->expectException(ProcessFailedException::class);
 
@@ -689,7 +761,15 @@ class DockerComposeTest extends TestCase
             ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(true);
+            ->andReturn(true)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->assertSame($docker, $docker->stop($service));
     }
@@ -745,7 +825,15 @@ class DockerComposeTest extends TestCase
             ->with(false)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(true);
+            ->andReturn(true)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->assertSame($docker, $docker->stop($service, true));
     }
@@ -815,7 +903,15 @@ class DockerComposeTest extends TestCase
             ->andReturn(true)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(false);
+            ->andReturn(false)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->expectException(ProcessFailedException::class);
 
@@ -891,7 +987,15 @@ class DockerComposeTest extends TestCase
             ->andReturn(true)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(false);
+            ->andReturn(false)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->expectException(ProcessFailedException::class);
 
@@ -946,7 +1050,15 @@ class DockerComposeTest extends TestCase
             ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(true);
+            ->andReturn(true)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->assertSame($docker, $docker->build($service));
     }
@@ -1002,7 +1114,15 @@ class DockerComposeTest extends TestCase
             ->with(false)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(true);
+            ->andReturn(true)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->assertSame($docker, $docker->build($service, true));
     }
@@ -1072,7 +1192,15 @@ class DockerComposeTest extends TestCase
             ->andReturn(true)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(false);
+            ->andReturn(false)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->expectException(ProcessFailedException::class);
 
@@ -1148,7 +1276,15 @@ class DockerComposeTest extends TestCase
             ->andReturn(true)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(false);
+            ->andReturn(false)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->expectException(ProcessFailedException::class);
 
@@ -1200,7 +1336,15 @@ class DockerComposeTest extends TestCase
             ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(true);
+            ->andReturn(true)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->assertSame($docker, $docker->destroy());
     }
@@ -1253,7 +1397,15 @@ class DockerComposeTest extends TestCase
             ->andReturn('')
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(true);
+            ->andReturn(true)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->assertSame($docker, $docker->destroy(true));
     }
@@ -1320,7 +1472,15 @@ class DockerComposeTest extends TestCase
             ->andReturn(true)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(false);
+            ->andReturn(false)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->expectException(ProcessFailedException::class);
 
@@ -1393,7 +1553,15 @@ class DockerComposeTest extends TestCase
             ->andReturn(true)
             ->shouldReceive('isSuccessful')
             ->once()
-            ->andReturn(false);
+            ->andReturn(false)
+            ->shouldReceive('setIdleTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf()
+            ->shouldReceive('setTimeout')
+            ->once()
+            ->with(null)
+            ->andReturnSelf();
 
         $this->expectException(ProcessFailedException::class);
 
