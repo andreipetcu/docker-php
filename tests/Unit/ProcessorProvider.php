@@ -35,4 +35,13 @@ trait ProcessorProvider
             [$processBuilder, 'superman'],
         ];
     }
+
+    public function getOutputProvider()
+    {
+        $processBuilder = m::mock(ProcessBuilder::class);
+
+        return [
+            [$processBuilder, ''],
+        ];
+    }
 }

@@ -45,4 +45,16 @@ class ProcessorTest extends TestCase
 
         $this->assertSame($namespace, $processor->setNamespace($namespace)->getNamespace());
     }
+
+    /**
+     * @dataProvider getOutputProvider
+     * @param ProcessBuilder $processBuilder
+     * @param string $output
+     */
+    public function testGetOutput(ProcessBuilder $processBuilder, string $output)
+    {
+        $processor = new Processor($processBuilder);
+
+        $this->assertSame($output, $processor->getOutput());
+    }
 }

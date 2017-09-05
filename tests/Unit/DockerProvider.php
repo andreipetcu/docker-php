@@ -14,4 +14,11 @@ trait DockerProvider
             [m::mock(ProcessBuilder::class), m::mock(Process::class), 'container']
         ];
     }
+
+    public function networkProvider()
+    {
+        return [
+            [m::mock(ProcessBuilder::class), m::mock(Process::class), 'container']
+        ];
+    }
 }
