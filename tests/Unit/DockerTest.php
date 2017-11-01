@@ -22,7 +22,7 @@ class DockerTest extends TestCase
     {
         $docker = new Docker($processBuilder);
 
-        $workingDirectory = '/tmp';
+        $workingDirectory = sys_get_temp_dir();
 
         $docker->setPath($workingDirectory);
 
@@ -105,7 +105,7 @@ class DockerTest extends TestCase
     ) {
         $docker = new Docker($processBuilder);
 
-        $workingDirectory = '/tmp';
+        $workingDirectory = sys_get_temp_dir();
 
         $docker->setPath($workingDirectory);
 
@@ -181,7 +181,7 @@ class DockerTest extends TestCase
     {
         $docker = new Docker($processBuilder);
 
-        $workingDirectory = '/tmp';
+        $workingDirectory = sys_get_temp_dir();
 
         $docker->setPath($workingDirectory);
 

@@ -26,7 +26,7 @@ class Docker extends Processor
     public function exec(string $container, string $command, bool $interactive = false): Docker
     {
         // TODO: Find a more suitable fix
-        $this->path = '/tmp';
+        $this->path = sys_get_temp_dir();
 
         $arguments = [
             self::DOCKER_EXEC,
@@ -52,7 +52,7 @@ class Docker extends Processor
      */
     public function network(string $action, array $arguments = []): Docker
     {
-        $this->path = '/tmp';
+        $this->path = sys_get_temp_dir();
 
         $arguments = array_merge(
             [
