@@ -11,14 +11,14 @@ trait DockerProvider
     public function sshProvider()
     {
         return [
-            [m::mock(ProcessBuilder::class), m::mock(Process::class), 'container']
+            [m::mock(ProcessBuilder::class), m::mock(Process::class), 'container'],
         ];
     }
 
     public function networkProvider()
     {
         return [
-            [m::mock(ProcessBuilder::class), m::mock(Process::class), 'container']
+            [m::mock(ProcessBuilder::class), m::mock(Process::class), 'container'],
         ];
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use AndreiPetcu\DockerPhp\Docker;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class DockerTest extends TestCase
 {
@@ -14,9 +14,10 @@ class DockerTest extends TestCase
 
     /**
      * @dataProvider sshProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
-     * @param string $container
+     * @param Process        $process
+     * @param string         $container
      */
     public function testSsh(ProcessBuilder $processBuilder, Process $process, string $container)
     {
@@ -94,9 +95,10 @@ class DockerTest extends TestCase
 
     /**
      * @dataProvider sshProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
-     * @param string $container
+     * @param Process        $process
+     * @param string         $container
      */
     public function testSshThrowsProcessFailedExceptionWhenProcessFails(
         ProcessBuilder $processBuilder,
@@ -173,9 +175,10 @@ class DockerTest extends TestCase
 
     /**
      * @dataProvider networkProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
-     * @param string $container
+     * @param Process        $process
+     * @param string         $container
      */
     public function testNetwork(ProcessBuilder $processBuilder, Process $process, string $container)
     {

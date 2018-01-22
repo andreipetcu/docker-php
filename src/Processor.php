@@ -3,8 +3,8 @@
 namespace AndreiPetcu\DockerPhp;
 
 use InvalidArgumentException;
-use Symfony\Component\Process\ProcessBuilder;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\ProcessBuilder;
 
 class Processor
 {
@@ -35,6 +35,7 @@ class Processor
 
     /**
      * Docker constructor.
+     *
      * @param ProcessBuilder $processBuilder
      */
     public function __construct(ProcessBuilder $processBuilder)
@@ -52,9 +53,10 @@ class Processor
 
     /**
      * @param string $path
+     *
      * @return Processor
      */
-    public function setPath(string $path): Processor
+    public function setPath(string $path): self
     {
         $this->path = $path;
 
@@ -71,9 +73,10 @@ class Processor
 
     /**
      * @param string $namespace
+     *
      * @return Processor
      */
-    public function setNamespace(string $namespace): Processor
+    public function setNamespace(string $namespace): self
     {
         $this->namespace = $namespace;
 
@@ -91,7 +94,7 @@ class Processor
     /**
      * @return Processor
      */
-    protected function tty(): Processor
+    protected function tty(): self
     {
         $this->tty = true;
 
@@ -100,15 +103,17 @@ class Processor
 
     /**
      * @param string $command
-     * @param array $arguments
-     * @param bool $verbose
-     * @return Processor
+     * @param array  $arguments
+     * @param bool   $verbose
+     *
      * @throws InvalidArgumentException
      * @throws ProcessFailedException
+     *
+     * @return Processor
      */
-    protected function run(string $command, array $arguments, bool $verbose = false): Processor
+    protected function run(string $command, array $arguments, bool $verbose = false): self
     {
-        if (! $this->path) {
+        if (!$this->path) {
             throw new InvalidArgumentException('You must provide a project path');
         }
 
@@ -133,7 +138,7 @@ class Processor
 
         $process->run($callback);
 
-        if (! $process->isSuccessful()) {
+        if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 

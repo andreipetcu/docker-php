@@ -3,13 +3,13 @@
 namespace Tests\Unit;
 
 use AndreiPetcu\DockerPhp\Docker;
+use AndreiPetcu\DockerPhp\DockerCompose;
 use InvalidArgumentException;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
-use AndreiPetcu\DockerPhp\DockerCompose;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class DockerComposeTest extends TestCase
 {
@@ -17,6 +17,7 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider isInstantiableProvider
+     *
      * @param ProcessBuilder $processBuilder
      */
     public function testIsInstantiable(ProcessBuilder $processBuilder)
@@ -28,8 +29,9 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider getPathProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param string $path
+     * @param string         $path
      */
     public function testGetPath(ProcessBuilder $processBuilder, string $path)
     {
@@ -40,8 +42,9 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider getNamespaceProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param string $namespace
+     * @param string         $namespace
      */
     public function testGetNamespace(ProcessBuilder $processBuilder, string $namespace)
     {
@@ -52,9 +55,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider startProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testStart(ProcessBuilder $processBuilder, Process $process, $service)
@@ -113,9 +118,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider startProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testStartVerbose(ProcessBuilder $processBuilder, Process $process, $service)
@@ -177,9 +184,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider startProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testStartThrowsProcessFailedExceptionWhenProcessFails(
@@ -257,9 +266,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider startProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testStartVerboseThrowsProcessFailedExceptionWhenProcessFails(
@@ -341,9 +352,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider startProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testStartThrowsInvalidArgumentExceptionWhenNoPathIsGiven(
@@ -426,9 +439,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider restartProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testRestart(ProcessBuilder $processBuilder, Process $process, $service)
@@ -487,9 +502,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider restartProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testRestartVerbose(ProcessBuilder $processBuilder, Process $process, $service)
@@ -551,9 +568,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider restartProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testRestartThrowsProcessFailedExceptionWhenProcessFails(
@@ -631,9 +650,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider restartProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testRestartVerboseThrowsProcessFailedExceptionWhenProcessFails(
@@ -715,9 +736,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider stopProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testStop(ProcessBuilder $processBuilder, Process $process, $service)
@@ -776,9 +799,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider stopProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testStopVerbose(ProcessBuilder $processBuilder, Process $process, $service)
@@ -840,9 +865,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider stopProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testStopThrowsProcessFailedExceptionWhenProcessFails(
@@ -920,9 +947,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider stopProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testStopVerboseThrowsProcessFailedExceptionWhenProcessFails(
@@ -1004,9 +1033,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider buildProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testBuild(ProcessBuilder $processBuilder, Process $process, $service)
@@ -1065,9 +1096,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider buildProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testBuildVerbose(ProcessBuilder $processBuilder, Process $process, $service)
@@ -1129,9 +1162,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider buildProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testBuildThrowsProcessFailedExceptionWhenProcessFails(
@@ -1209,9 +1244,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider buildProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testBuildVerboseThrowsProcessFailedExceptionWhenProcessFails(
@@ -1293,9 +1330,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider destroyProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testDestroy(ProcessBuilder $processBuilder, Process $process, $service)
@@ -1351,9 +1390,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider destroyProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testDestroyVerbose(ProcessBuilder $processBuilder, Process $process, $service)
@@ -1412,9 +1453,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider destroyProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testDestroyThrowsProcessFailedExceptionWhenProcessFails(
@@ -1489,9 +1532,11 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider destroyProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Process $process
+     * @param Process        $process
      * @param $service
+     *
      * @internal param $services
      */
     public function testDestroyVerboseThrowsProcessFailedExceptionWhenProcessFails(
@@ -1570,8 +1615,9 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider dockerProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Docker $docker
+     * @param Docker         $docker
      */
     public function testDocker(ProcessBuilder $processBuilder, Docker $docker)
     {
@@ -1584,8 +1630,9 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider dockerProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Docker $docker
+     * @param Docker         $docker
      */
     public function testSsh(ProcessBuilder $processBuilder, Docker $docker)
     {
@@ -1604,8 +1651,9 @@ class DockerComposeTest extends TestCase
 
     /**
      * @dataProvider dockerProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param Docker $docker
+     * @param Docker         $docker
      */
     public function testSshThrowsInvalidArgumentExceptionWhenNoDockerInstanceIsGiven(
         ProcessBuilder $processBuilder,

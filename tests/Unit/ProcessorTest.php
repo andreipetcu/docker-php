@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use AndreiPetcu\DockerPhp\Processor;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 class ProcessorTest extends TestCase
@@ -13,6 +12,7 @@ class ProcessorTest extends TestCase
 
     /**
      * @dataProvider isInstantiableProvider
+     *
      * @param ProcessBuilder $processBuilder
      */
     public function testIsInstantiable(ProcessBuilder $processBuilder)
@@ -24,8 +24,9 @@ class ProcessorTest extends TestCase
 
     /**
      * @dataProvider getPathProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param string $path
+     * @param string         $path
      */
     public function testGetPath(ProcessBuilder $processBuilder, string $path)
     {
@@ -36,8 +37,9 @@ class ProcessorTest extends TestCase
 
     /**
      * @dataProvider getNamespaceProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param string $namespace
+     * @param string         $namespace
      */
     public function testGetNamespace(ProcessBuilder $processBuilder, string $namespace)
     {
@@ -48,8 +50,9 @@ class ProcessorTest extends TestCase
 
     /**
      * @dataProvider getOutputProvider
+     *
      * @param ProcessBuilder $processBuilder
-     * @param string $output
+     * @param string         $output
      */
     public function testGetOutput(ProcessBuilder $processBuilder, string $output)
     {
