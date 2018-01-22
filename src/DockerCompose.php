@@ -23,16 +23,17 @@ class DockerCompose extends Processor
     /**
      * @param null $service
      * @param bool $verbose
+     *
      * @return DockerCompose
      */
-    public function start($service = null, bool $verbose = false): DockerCompose
+    public function start($service = null, bool $verbose = false): self
     {
-        $service = ! is_array($service) ? [$service] : $service;
+        $service = !is_array($service) ? [$service] : $service;
 
         $arguments = array_filter(array_merge(
             [
                 self::COMPOSE_NAMESPACE, $this->namespace,
-                self::COMPOSE_START, self::COMPOSE_DAEMON
+                self::COMPOSE_START, self::COMPOSE_DAEMON,
             ],
             $service
         ));
@@ -45,16 +46,17 @@ class DockerCompose extends Processor
     /**
      * @param null $service
      * @param bool $verbose
+     *
      * @return DockerCompose
      */
-    public function restart($service = null, bool $verbose = false): DockerCompose
+    public function restart($service = null, bool $verbose = false): self
     {
-        $service = ! is_array($service) ? [$service] : $service;
+        $service = !is_array($service) ? [$service] : $service;
 
         $arguments = array_filter(array_merge(
             [
                 self::COMPOSE_NAMESPACE, $this->namespace,
-                self::COMPOSE_RESTART
+                self::COMPOSE_RESTART,
             ],
             $service
         ));
@@ -67,16 +69,17 @@ class DockerCompose extends Processor
     /**
      * @param null $service
      * @param bool $verbose
+     *
      * @return DockerCompose
      */
-    public function stop($service = null, bool $verbose = false): DockerCompose
+    public function stop($service = null, bool $verbose = false): self
     {
-        $service = ! is_array($service) ? [$service] : $service;
+        $service = !is_array($service) ? [$service] : $service;
 
         $arguments = array_filter(array_merge(
             [
                 self::COMPOSE_NAMESPACE, $this->namespace,
-                self::COMPOSE_STOP
+                self::COMPOSE_STOP,
             ],
             $service
         ));
@@ -89,13 +92,14 @@ class DockerCompose extends Processor
     /**
      * @param null $service
      * @param bool $verbose
+     *
      * @return DockerCompose
      */
-    public function destroy(bool $verbose = false): DockerCompose
+    public function destroy(bool $verbose = false): self
     {
         $arguments = [
             self::COMPOSE_NAMESPACE, $this->namespace,
-            self::COMPOSE_DOWN
+            self::COMPOSE_DOWN,
         ];
 
         $this->fire($arguments, $verbose);
@@ -106,16 +110,17 @@ class DockerCompose extends Processor
     /**
      * @param null $service
      * @param bool $verbose
+     *
      * @return DockerCompose
      */
-    public function build($service = null, bool $verbose = false): DockerCompose
+    public function build($service = null, bool $verbose = false): self
     {
-        $service = ! is_array($service) ? [$service] : $service;
+        $service = !is_array($service) ? [$service] : $service;
 
         $arguments = array_filter(array_merge(
             [
                 self::COMPOSE_NAMESPACE, $this->namespace,
-                self::COMPOSE_BUILD
+                self::COMPOSE_BUILD,
             ],
             $service
         ));
@@ -128,9 +133,10 @@ class DockerCompose extends Processor
     /**
      * @param null $service
      * @param bool $verbose
+     *
      * @return DockerCompose
      */
-    public function docker(Docker $docker): DockerCompose
+    public function docker(Docker $docker): self
     {
         $this->docker = $docker;
 
@@ -139,11 +145,12 @@ class DockerCompose extends Processor
 
     /**
      * @param string $service
+     *
      * @throws InvalidArgumentException
      */
-    public function ssh(string $service): DockerCompose
+    public function ssh(string $service): self
     {
-        if (! $this->docker) {
+        if (!$this->docker) {
             throw new InvalidArgumentException('You must provide a Docker instance');
         }
 
@@ -156,9 +163,9 @@ class DockerCompose extends Processor
 
     /**
      * @param array $arguments
-     * @param bool $verbose
+     * @param bool  $verbose
      */
-    protected function fire(array $arguments, bool $verbose = false): DockerCompose
+    protected function fire(array $arguments, bool $verbose = false): self
     {
         $this->run(self::COMPOSE_COMMAND, $arguments, $verbose);
 

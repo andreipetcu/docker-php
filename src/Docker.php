@@ -13,7 +13,7 @@ class Docker extends Processor
     /**
      * @param $service
      */
-    public function ssh(string $container): Docker
+    public function ssh(string $container): self
     {
         return $this->exec($container, 'bash', true);
     }
@@ -21,9 +21,9 @@ class Docker extends Processor
     /**
      * @param string $container
      * @param string $command
-     * @param bool $interactive
+     * @param bool   $interactive
      */
-    public function exec(string $container, string $command, bool $interactive = false): Docker
+    public function exec(string $container, string $command, bool $interactive = false): self
     {
         // TODO: Find a more suitable fix
         $this->path = sys_get_temp_dir();
@@ -33,7 +33,7 @@ class Docker extends Processor
             $interactive ? self::DOCKER_INTERACTIVE : null,
             $interactive ? self::DOCKER_TTY : null,
             $container,
-            $command
+            $command,
         ];
 
         if ($interactive) {
@@ -47,17 +47,18 @@ class Docker extends Processor
 
     /**
      * @param string $action
-     * @param array $arguments
+     * @param array  $arguments
+     *
      * @return Docker
      */
-    public function network(string $action, array $arguments = []): Docker
+    public function network(string $action, array $arguments = []): self
     {
         $this->path = sys_get_temp_dir();
 
         $arguments = array_merge(
             [
                 self::DOCKER_NETWORK,
-                $action
+                $action,
             ],
             $arguments
         );

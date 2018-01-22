@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use Mockery as m;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 trait ProcessorProvider
@@ -13,9 +12,10 @@ trait ProcessorProvider
         $processBuilder = m::mock(ProcessBuilder::class);
 
         return [
-            [$processBuilder]
+            [$processBuilder],
         ];
     }
+
     public function getPathProvider()
     {
         $processBuilder = m::mock(ProcessBuilder::class);

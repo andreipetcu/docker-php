@@ -14,7 +14,7 @@ trait DockerComposeProvider
         $processBuilder = m::mock(ProcessBuilder::class);
 
         return [
-            [$processBuilder]
+            [$processBuilder],
         ];
     }
 
@@ -25,7 +25,7 @@ trait DockerComposeProvider
         $process->shouldReceive('stop');
 
         return [
-            'with single service' => [$processBuilder, $process, 'service'],
+            'with single service'    => [$processBuilder, $process, 'service'],
             'with multiple services' => [$processBuilder, $process, ['service1', 'service2']],
         ];
     }
@@ -37,7 +37,7 @@ trait DockerComposeProvider
         $process->shouldReceive('stop');
 
         return [
-            'with single service' => [$processBuilder, $process, 'service'],
+            'with single service'    => [$processBuilder, $process, 'service'],
             'with multiple services' => [$processBuilder, $process, ['service1', 'service2']],
         ];
     }
@@ -49,7 +49,7 @@ trait DockerComposeProvider
         $process->shouldReceive('stop');
 
         return [
-            'with single service' => [$processBuilder, $process, 'service'],
+            'with single service'    => [$processBuilder, $process, 'service'],
             'with multiple services' => [$processBuilder, $process, ['service1', 'service2']],
         ];
     }
@@ -61,7 +61,7 @@ trait DockerComposeProvider
         $process->shouldReceive('stop');
 
         return [
-            'with single service' => [$processBuilder, $process, 'service'],
+            'with single service'    => [$processBuilder, $process, 'service'],
             'with multiple services' => [$processBuilder, $process, ['service1', 'service2']],
         ];
     }
@@ -73,7 +73,7 @@ trait DockerComposeProvider
         $process->shouldReceive('stop');
 
         return [
-            'with single service' => [$processBuilder, $process, 'service'],
+            'with single service'    => [$processBuilder, $process, 'service'],
             'with multiple services' => [$processBuilder, $process, ['service1', 'service2']],
         ];
     }
@@ -104,7 +104,7 @@ trait DockerComposeProvider
         $docker = m::mock(Docker::class);
 
         return [
-            [$processBuilder, $docker]
+            [$processBuilder, $docker],
         ];
     }
 }
